@@ -40,4 +40,8 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  Future<http.Response> _fetchPosts() {
+    return http.get('https://jsonplaceholder.typicode.com/posts/1');
+  }
 }
