@@ -121,6 +121,7 @@ class _PostPageState extends State<PostPage> {
 
   Widget createPostsWidget(List<Post> posts) {
     return ListView.builder(
+      itemCount: posts.length,
       itemBuilder: (context, index) {
         var post = posts[index];
         return Padding(
@@ -197,7 +198,8 @@ class PhotoPageState extends State<PhotoPage> {
       ),
       itemCount: photos.length,
       itemBuilder: (context, index) {
-        return Image.network(photos[index].thumbnailUrl);
+        var photo = photos[index];
+        return Image.network(photo.thumbnailUrl);
       },
     );
   }
