@@ -25,6 +25,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<Post> post;
+
+  @override
+  void initState() {
+    super.initState();
+    post = _fetchPost();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,19 +40,23 @@ class _HomePageState extends State<HomePage> {
         title: Text("Network"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
+        child: FutureBuilder<Post>(
+          future: post,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(snapshot.data.title);
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
         ),
       ),
     );
   }
 
-  Future<Post> _fetchPosts() async {
+  Future<Post> _fetchPost() async {
     var response =
         await http.get('https://jsonplaceholder.typicode.com/posts/1');
     if (response.statusCode == 200) {
