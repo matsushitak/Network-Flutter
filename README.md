@@ -20,4 +20,3 @@ samples, guidance on mobile development, and a full API reference.
 - [Fetch data from the internet \- Flutter](https://flutter.dev/docs/cookbook/networking/fetch-data)
 
 <img src="https://user-images.githubusercontent.com/18419093/61459668-39c01400-a9a8-11e9-9968-86af7fdb02be.gif" width=400>
-<img src="https://user-images.githubusercontent.com/18419093/61459233-4132ed80-a9a7-11e9-9e8c-efa9758da8ba.gif" width=400>
