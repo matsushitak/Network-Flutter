@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:network/photo.dart';
 import 'package:network/post.dart';
 
 void main() => runApp(App());
@@ -67,5 +68,21 @@ class _HomePageState extends State<HomePage> {
     } else {
       throw Exception("Failure fetch posts data.");
     }
+  }
+
+  Future<List<Photo>> _fetchPhotos() async {
+    var response = await http.get(
+      'https://jsonplaceholder.typicode.com/photos',
+    );
+    if (response.statusCode == 200) {
+      return _parsePhotos(response.body);
+    } else {
+      throw Exception("Failure fetch photos data.");
+    }
+  }
+
+  List<Photo> _parsePhotos(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
   }
 }
