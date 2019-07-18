@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:network/post.dart';
 
 void main() => runApp(App());
 
@@ -41,7 +44,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<http.Response> _fetchPosts() {
-    return http.get('https://jsonplaceholder.typicode.com/posts/1');
+  Future<Post> _fetchPosts() async {
+    var response =
+        await http.get('https://jsonplaceholder.typicode.com/posts/1');
+    if (response.statusCode == 200) {
+      return Post.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Failure fetch posts data.");
+    }
   }
 }
